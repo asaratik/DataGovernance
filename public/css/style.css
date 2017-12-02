@@ -49,9 +49,7 @@ Table of Contents End
 ---------------------------------------------------------------------- */
 html,
 body {
-  	color: #fff;
-  	text-align: center;
-  	font-family: 'Quicksand', sans-serif;
+	font-family: 'Open Sans', Sans-serif;
 	font-size: 16px;
 	overflow: hidden;
 
@@ -61,13 +59,7 @@ body {
 	-0-font-smoothing: antialiased;
 }
 
-body {
-  background: url(../img/cover.jpg) no-repeat center center fixed;
-  background-size: cover;
-  color: #fff;
-  text-align: center;
-  font-family: 'Quicksand', sans-serif;
-}
+
 
 a {
 	text-decoration: none;
@@ -1255,4 +1247,3 @@ height:600px;
 .results tr[visible='true']{
   display:table-row;
 }
-
