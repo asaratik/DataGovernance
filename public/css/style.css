@@ -1108,6 +1108,9 @@ footer {
 	background-color: #3498db;
 	color: #ffffff;
 	font-size: .875em;
+	position:absolute;
+   bottom:0;
+   width: 100%
 }
 footer p,
 footer a {
@@ -1213,18 +1216,18 @@ footer a {
 	margin-top: 20px;
 }
 .contentbox{
-height:600px;
+ height: 600px;
 white-space:nowrap; 
 overflow: scroll;
 }
 .contentbox1{
-height:600px;
+ min-height:100%;
 width: 1285px;
 margin:0px auto 0px -100px;
    white-space:nowrap; 
 }
 .contentbox2{
-height:600px;
+ min-height:100%;
 }
 .listbox{
    position: relative; 

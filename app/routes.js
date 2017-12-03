@@ -29,35 +29,35 @@ module.exports = function(app, passport) {
 
     app.get('/home', isLoggedIn, function(req, res){
     	res.render('home.ejs', {
-			user : req.user,
+			user : req.user.id,
 			tag : ''
 		});
     });
 
     app.get('/roles', isLoggedIn, function(req, res){
     	res.render('roles.ejs', {
-			user : req.user,
+			user : req.user.id,
 			tag : 'roles'
 		});
     });
 
     app.get('/data', isLoggedIn, function(req, res){
     	res.render('data.ejs', {
-			user : req.user,
+			user : req.user.id,
 			tag : 'data'
 		});
     });
 
     app.get('/tableData', isLoggedIn, function(req, res){
     	res.render('tableData.ejs', {
-			user : req.user,
+			user : req.user.id,
 			tag : 'tableData'
 		});
     });
 
     app.get('/user', isLoggedIn, function(req, res){
     	res.render('user.ejs', {
-			user : req.user,
+			user : req.user.id,
 			tag : 'user'
 		});
     });

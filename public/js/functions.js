@@ -470,7 +470,7 @@ em.className="fa fa-trash";
 					table.appendChild(tr);
 				
 }
-function populateList(){
+function populateList(user){
 
 var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -493,7 +493,7 @@ list.appendChild(div);
 }
 }
     };
-     xhttp.open("GET", "http://www.rbac.us-west-1.elasticbeanstalk.com:8080/user/1", true);
+     xhttp.open("GET", "http://www.rbac.us-west-1.elasticbeanstalk.com:8080/user/"+user, true);
   xhttp.send();
 }
 
@@ -501,9 +501,9 @@ function callData(value){
  localStorage.setItem("TableName",value);
 window.location='/tableData';
 }
-function getTable(){
+function getTable(user){
   var tableData;
-  var url="http://www.rbac.us-west-1.elasticbeanstalk.com:8080/user/2/tabledata/"+localStorage.getItem("TableName");
+  var url="http://www.rbac.us-west-1.elasticbeanstalk.com:8080/user/"+user+"/tabledata/"+localStorage.getItem("TableName");
   //console.log(url)
 var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -527,7 +527,7 @@ var tableBody = document.createElement('TBODY');
 tableBody.className="tbody";
 tableBody.id="myTable"
 
-           
+          var deleteButtonId=stock[0][0]+"/data/";
 			var tr = document.createElement('TR');
       
 			for(i=0;i<stock[0].length;i++){
@@ -554,6 +554,7 @@ for( i=2;i<stock.length;i++){
 for(j=0;j<stock[i].length;j++){
 var trId=stock[i][0];
 tr.id=trId;
+deleteButtonId+=trId;
           var td = document.createElement('TD')
                     td.appendChild(document.createTextNode(stock[i][j]));
 					td.contentEditable =stock[1][j];
@@ -566,15 +567,15 @@ var em=document.createElement('em');
 em.className="fa fa-pencil";
 					button.appendChild(em);
           button.id=trId;
-					button.onclick=function update(){updateTableData(this.id)};;
+					button.onclick=function update(){updateTableData(this.rowIndex,user)};;
           var delbutton=document.createElement('button');
           delbutton.type="button";
           delbutton.className="btn btn-danger";
 var em=document.createElement('em');
 em.className="fa fa-trash";
           delbutton.appendChild(em);
-          delbutton.id=trId;
-          delbutton.onclick=function update(){deleteTableData(this.rowIndex)};
+          delbutton.id=deleteButtonId;
+          delbutton.onclick=function update(){deleteTableData(this.id)};
 					td = document.createElement('TD')
 					td.appendChild(button);
           td.appendChild(document.createTextNode("  "))
@@ -601,13 +602,12 @@ contentBox.appendChild(div);
 }
 
 
-function updateTableData(value){
+function updateTableData(value,user){
 var tr=document.getElementById(value);
 var response;
 var rows = document.getElementsByTagName('tr');
-response=localStorage.getItem("TableName");
-
-for(i=0;i<rows[value].children.length-1;i++){
+response=rows[value].children[0].innerHTML;
+for(i=1;i<rows[value].children.length-1;i++){
 
 response+=","+rows[value].children[i].innerHTML;
 
@@ -624,7 +624,8 @@ var xhttp = new XMLHttpRequest();
 
 }
     };
-     xhttp.open("POST", "http://rbac.us-west-1.elasticbeanstalk.com:8080/roledata/newRole", true);
+    var url="http://rbac.us-west-1.elasticbeanstalk.com:8080/user"+user+"/table/"+localStorage.getItem("TableName");
+     xhttp.open("POST",url , true);
   //xhttp.send(JSON.stringify(user));
   xhttp.send(response);
 
@@ -647,7 +648,8 @@ function deleteTableData(value){
 
 }
     };
-     xhttp.open("DELETE", "http://rbac.us-west-1.elasticbeanstalk.com:8080/roledata/deleteRole/"+response, true);
+   var url="http://rbac.us-west-1.elasticbeanstalk.com:8080/user"+user+"/table/"+localStorage.getItem("TableName")+"/column"+value;
+     xhttp.open("DELETE", url, true);
   //xhttp.send(JSON.stringify(user));
   xhttp.send();
 
@@ -668,10 +670,10 @@ Message.style.color="Red";
 Message.innerHTML="Deleted Successfully"
 }
 
-function loadUsers(){
+function loadUsers(user){
 
 
-var url="http://www.rbac.us-west-1.elasticbeanstalk.com:8080/user/2/tabledata/"+localStorage.getItem("TableName");
+
 var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -744,7 +746,7 @@ tbody.appendChild(tr);
 table.appendChild(tbody)
 }
     };
-     xhttp.open("GET", "http://rbac.us-west-1.elasticbeanstalk.com:8080/roledata/userRole/1", true);
+     xhttp.open("GET", "http://rbac.us-west-1.elasticbeanstalk.com:8080/roledata/userRole/"+user, true);
   xhttp.send();
 
 }
@@ -906,18 +908,18 @@ function searching(value) {
 }
 
 
-function loadFunction(value) {
+function loadFunction(value,user) {
       if (value === 'roles') {
           populateTable();
       }
       if (value === 'data') {
 
-          populateList();
+          populateList(user);
       }
       if (value === 'user') {
-          loadUsers();
+          loadUsers(user);
       }
       if (value === 'tableData') {
-          getTable();
+          getTable(user);
       }
   }
