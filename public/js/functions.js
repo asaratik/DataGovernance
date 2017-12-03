@@ -528,6 +528,7 @@ tableBody.className="tbody";
 tableBody.id="myTable"
 
           var deleteButtonId=stock[0][0]+"/data/";
+          localStorage.setItem("columnName",stock[0][0]);
 			var tr = document.createElement('TR');
       
 			for(i=0;i<stock[0].length;i++){
@@ -554,7 +555,7 @@ for( i=2;i<stock.length;i++){
 for(j=0;j<stock[i].length;j++){
 var trId=stock[i][0];
 tr.id=trId;
-deleteButtonId+=trId;
+//deleteButtonId=trId;
           var td = document.createElement('TD')
                     td.appendChild(document.createTextNode(stock[i][j]));
 					td.contentEditable =stock[1][j];
@@ -567,15 +568,15 @@ var em=document.createElement('em');
 em.className="fa fa-pencil";
 					button.appendChild(em);
           button.id=trId;
-					button.onclick=function update(){updateTableData(this.rowIndex,user)};;
+					button.onclick=function update(){updateTableData(this.id,user)};;
           var delbutton=document.createElement('button');
           delbutton.type="button";
           delbutton.className="btn btn-danger";
 var em=document.createElement('em');
 em.className="fa fa-trash";
           delbutton.appendChild(em);
-          delbutton.id=deleteButtonId;
-          delbutton.onclick=function update(){deleteTableData(this.id)};
+          delbutton.id=trId;
+          delbutton.onclick=function update(){deleteTableData(this.id,user)};
 					td = document.createElement('TD')
 					td.appendChild(button);
           td.appendChild(document.createTextNode("  "))
@@ -604,12 +605,12 @@ contentBox.appendChild(div);
 
 function updateTableData(value,user){
 var tr=document.getElementById(value);
-var response;
-var rows = document.getElementsByTagName('tr');
-response=rows[value].children[0].innerHTML;
-for(i=1;i<rows[value].children.length-1;i++){
+var response=user+","+localStorage.getItem("TableName")+","+value;
+var rows = document.getElementById(value);
+//response=rows[value].children[0].innerHTML;
+for(i=0;i<rows.children.length-1;i++){
 
-response+=","+rows[value].children[i].innerHTML;
+response+=","+rows.children[i].innerHTML;
 
 }
 
@@ -624,16 +625,14 @@ var xhttp = new XMLHttpRequest();
 
 }
     };
-    var url="http://rbac.us-west-1.elasticbeanstalk.com:8080/user"+user+"/table/"+localStorage.getItem("TableName");
+    var url="http://rbac.us-west-1.elasticbeanstalk.com:8080/user/updateTableData";
      xhttp.open("POST",url , true);
   //xhttp.send(JSON.stringify(user));
   xhttp.send(response);
 
-
-console.log(response)
 }
 
-function deleteTableData(value){
+function deleteTableData(value,user){
   var response=localStorage.getItem("TableName")+","+value
    var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -648,7 +647,7 @@ function deleteTableData(value){
 
 }
     };
-   var url="http://rbac.us-west-1.elasticbeanstalk.com:8080/user"+user+"/table/"+localStorage.getItem("TableName")+"/column"+value;
+   var url="http://rbac.us-west-1.elasticbeanstalk.com:8080/user/"+user+"/table/"+localStorage.getItem("TableName")+"/column/"+localStorage.getItem("columnName")+"/data/"+value;
      xhttp.open("DELETE", url, true);
   //xhttp.send(JSON.stringify(user));
   xhttp.send();
