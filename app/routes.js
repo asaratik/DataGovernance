@@ -24,41 +24,72 @@ module.exports = function(app, passport) {
             } else {
               req.session.cookie.expires = false;
             }
-        res.redirect('/home');
+        
+    res.redirect('/home');
     });
 
     app.get('/home', isLoggedIn, function(req, res){
+    	    if(req.user.username==='admin'){
+        var hideroles='visible';
+    }else{
+    	var hideroles='none';
+    }
     	res.render('home.ejs', {
 			user : req.user.id,
-			tag : ''
+			tag : '',
+			hideroles:hideroles
 		});
     });
 
     app.get('/roles', isLoggedIn, function(req, res){
+    	 if(req.user.username==='admin'){
+        var hideroles='visible';
+    }else{
+    	var hideroles='none';
+    }
     	res.render('roles.ejs', {
 			user : req.user.id,
-			tag : 'roles'
+			tag : 'roles',
+			hideroles:hideroles
 		});
     });
 
     app.get('/data', isLoggedIn, function(req, res){
+    	 if(req.user.username==='admin'){
+        var hideroles='visible';
+    }else{
+    	var hideroles='none';
+    }
     	res.render('data.ejs', {
 			user : req.user.id,
-			tag : 'data'
+			tag : 'data',
+			hideroles:hideroles
 		});
     });
 
     app.get('/tableData', isLoggedIn, function(req, res){
+    	 if(req.user.username==='admin'){
+        var hideroles='visible';
+    }else{
+    	var hideroles='none';
+    }
     	res.render('tableData.ejs', {
 			user : req.user.id,
-			tag : 'tableData'
+			tag : 'tableData',
+			hideroles:hideroles
 		});
     });
 
     app.get('/user', isLoggedIn, function(req, res){
+    	 if(req.user.username==='admin'){
+        var hideroles='visible';
+    }else{
+    	var hideroles='none';
+    }
     	res.render('user.ejs', {
 			user : req.user.id,
-			tag : 'user'
+			tag : 'user',
+			hideroles:hideroles
 		});
     });
 
