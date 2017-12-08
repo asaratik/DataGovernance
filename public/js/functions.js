@@ -401,7 +401,7 @@ var xhttp = new XMLHttpRequest();
   xhttp.send(response);
 
   //console.log(response);
-
+window.location.reload();
 }
 
 
@@ -422,6 +422,7 @@ function deleteRoles(value){
      xhttp.open("DELETE", "http://rbac.us-west-1.elasticbeanstalk.com:8080/roledata/deleteRole/"+value, true);
   //xhttp.send(JSON.stringify(user));
   xhttp.send();
+  window.location.reload();
 
 }
 
@@ -629,7 +630,7 @@ var xhttp = new XMLHttpRequest();
      xhttp.open("POST",url , true);
   //xhttp.send(JSON.stringify(user));
   xhttp.send(response);
-
+window.location.reload();
 }
 
 function deleteTableData(value,user){
@@ -651,7 +652,7 @@ function deleteTableData(value,user){
      xhttp.open("DELETE", url, true);
   //xhttp.send(JSON.stringify(user));
   xhttp.send();
-
+window.location.reload();
 }
 
 
@@ -769,7 +770,7 @@ var xhttp = new XMLHttpRequest();
      xhttp.open("POST", "http://rbac.us-west-1.elasticbeanstalk.com:8080/roledata/userRole/update", true);
   //xhttp.send(JSON.stringify(user));
   xhttp.send(user);
-
+window.location.reload();
  }
 
 

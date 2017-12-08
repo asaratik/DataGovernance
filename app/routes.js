@@ -37,6 +37,7 @@ module.exports = function(app, passport) {
     	res.render('home.ejs', {
 			user : req.user.id,
 			tag : '',
+            name : req.user.username,
 			hideroles:hideroles
 		});
     });
@@ -50,6 +51,7 @@ module.exports = function(app, passport) {
     	res.render('roles.ejs', {
 			user : req.user.id,
 			tag : 'roles',
+            name : req.user.username,
 			hideroles:hideroles
 		});
     });
@@ -63,6 +65,7 @@ module.exports = function(app, passport) {
     	res.render('data.ejs', {
 			user : req.user.id,
 			tag : 'data',
+            name : req.user.username,
 			hideroles:hideroles
 		});
     });
@@ -76,6 +79,7 @@ module.exports = function(app, passport) {
     	res.render('tableData.ejs', {
 			user : req.user.id,
 			tag : 'tableData',
+            name : req.user.username,
 			hideroles:hideroles
 		});
     });
@@ -89,6 +93,7 @@ module.exports = function(app, passport) {
     	res.render('user.ejs', {
 			user : req.user.id,
 			tag : 'user',
+            name : req.user.username,
 			hideroles:hideroles
 		});
     });
