@@ -621,7 +621,7 @@ var xhttp = new XMLHttpRequest();
      responsemsg = this.responseText;
      //console.log(responsemsg)
      givemessage(responsemsg);
-
+     console.log(response)
      
 
 }
@@ -644,11 +644,12 @@ function deleteTableData(value,user){
 
      deletemessage(responsemsg);
 
-  
+
 
 }
     };
    var url="http://rbac.us-west-1.elasticbeanstalk.com:8080/user/"+user+"/table/"+localStorage.getItem("TableName")+"/column/"+localStorage.getItem("columnName")+"/data/"+value;
+     console.log(url);
      xhttp.open("DELETE", url, true);
   //xhttp.send(JSON.stringify(user));
   xhttp.send();
