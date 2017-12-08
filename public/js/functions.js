@@ -555,7 +555,7 @@ for( i=2;i<stock.length;i++){
   //var trId=stock[2][];
 for(j=0;j<stock[i].length;j++){
 var trId=stock[i][0];
-tr.id=trId;
+tr.id="row"+trId;
 //deleteButtonId=trId;
           var td = document.createElement('TD')
                     td.appendChild(document.createTextNode(stock[i][j]));
@@ -607,7 +607,7 @@ contentBox.appendChild(div);
 function updateTableData(value,user){
 var tr=document.getElementById(value);
 var response=user+","+localStorage.getItem("TableName")+","+value;
-var rows = document.getElementById(value);
+var rows = document.getElementById("row"+value);
 //response=rows[value].children[0].innerHTML;
 for(i=0;i<rows.children.length-1;i++){
 
